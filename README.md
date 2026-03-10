@@ -27,12 +27,14 @@ cd ~/dotfiles
 
 ### 3. Install
 
+```
 ./homebrew
 ./bootstap
+```
 
 ### 4. Maintenance
 
 When you change a setting in VS Code/Cursor or update your .zshrc:
-Make the change directly in the ~/dotfiles directory.
+Make the change directly in the `~/dotfiles` directory.
 Commit and push the changes.
-If you install a new Homebrew package, update the Brewfile by running: brew bundle dump --force --file=~/dotfiles/Brewfile.
+If you install a new Homebrew package, update the Brewfile by running: `brew bundle dump --force --file=~/dotfiles/Brewfile`.
