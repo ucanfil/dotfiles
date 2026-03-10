@@ -1,0 +1,26 @@
+{
+  "terminal.integrated.fontFamily": "Meslo LG L DZ For Powerline",
+  "snyk.advanced.cliPath": "/Users/onoff/Library/Application Support/snyk-ls/snyk-macos",
+  "workbench.colorTheme": "Nord",
+  "sherlock.userId": "5552b68c-7979-4209-a45b-79e4a1bbceae",
+  "telemetry.telemetryLevel": "off",
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 14,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.autoSave": "onFocusChange",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "always"
+  },
+  "[snippets]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "npm.enableRunFromFolder": true
+}

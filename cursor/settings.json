@@ -1,0 +1,45 @@
+{
+  "terminal.integrated.fontFamily": "Meslo LG L DZ For Powerline",
+  "snyk.advanced.cliPath": "/Users/onoff/Library/Application Support/snyk-ls/snyk-macos",
+  "workbench.colorTheme": "Nord",
+  "sherlock.userId": "5552b68c-7979-4209-a45b-79e4a1bbceae",
+  "telemetry.telemetryLevel": "off",
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 14,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "stylelint.validate": ["css", "scss"],
+  "stylelint.stylelintPath": "/Users/onoff/Projects/onoff-business-frontend/node_modules/stylelint",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "always",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "[snippets]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "npm.enableRunFromFolder": true,
+  "cursor.cpp.disabledLanguages": ["plaintext", "markdown", "scminput"],
+  "security.promptForLocalFileProtocolHandling": false,
+  "editor.tabSize": 2,
+  "javascript.preferences.organizeImports": {},
+  "github.copilot.enable": {
+    "*": false
+  },
+  "github.copilot.advanced": {},
+  "files.autoSave": "onFocusChange",
+  "workbench.experimental.share.enabled": true,
+  "cursor.composer.usageSummaryDisplay": "always",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

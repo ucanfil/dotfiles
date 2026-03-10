@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+DOTFILES_ROOT=$(pwd -P)
+set -e
+echo ''
+
+info () { printf "\r  [ \033[00;34m..\033[0m ] $1\n"; }
+user () { printf "\r  [ \033[0;33m??\033[0m ] $1\n"; }
+success () { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"; }
+fail () { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"; echo ''; exit; }
+
+link_file () {
+  local src=$1 dst=$2
+  local overwrite= backup= skip= action=
+
+  if [ -f "$dst" ] ||[ -d "$dst" ] || [ -L "$dst" ]; then
+    if[ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] &&[ "$skip_all" == "false" ]; then
+      local currentSrc="$(readlink "$dst")"
+
+      if[ "$currentSrc" == "$src" ]; then
+        skip=true;
+      else
+        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        read -n 1 action < /dev/tty
+        echo ""
+        case "$action" in
+          o ) overwrite=true;;
+          O ) overwrite_all=true;;
+          b ) backup=true;;
+          B ) backup_all=true;;
+          s ) skip=true;;
+          S ) skip_all=true;;
+          * ) ;;
+        esac
+      fi
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ "$overwrite" == "true" ]; then
+      rm -rf "$dst"
+      success "removed $dst"
+    fi
+
+    if [ "$backup" == "true" ]; then
+      mv "$dst" "${dst}.backup"
+      success "moved $dst to ${dst}.backup"
+    fi
+
+    if [ "$skip" == "true" ]; then
+      success "skipped $src"
+    fi
+  fi
+
+  if [ "$skip" != "true" ]; then
+    ln -s "$1" "$2"
+    success "linked $1 to $2"
+  fi
+}
+
+install_dotfiles () {
+  info 'Installing root dotfiles (.symlink)...'
+  local overwrite_all=false backup_all=false skip_all=false
+
+  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
+    dst="$HOME/.$(basename "${src%.*}")"
+    link_file "$src" "$dst"
+  done
+}
+
+install_app_configs () {
+  info 'Installing VS Code & Cursor configs...'
+
+  # Ensure target directories exist
+  mkdir -p "$HOME/Library/Application Support/Code/User"
+  mkdir -p "$HOME/Library/Application Support/Cursor/User"
+
+  # Link VS Code settings using the safe link_file function
+  link_file "$DOTFILES_ROOT/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+  link_file "$DOTFILES_ROOT/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
+
+  # Link Cursor settings
+  link_file "$DOTFILES_ROOT/cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"
+  link_file "$DOTFILES_ROOT/cursor/keybindings.json" "$HOME/Library/Application Support/Cursor/User/keybindings.json"
+}
+
+install_extensions () {
+  info 'Installing IDE Extensions...'
+  if command -v code &> /dev/null; then
+      while read -r ext; do code --install-extension "$ext" --force; done < "$DOTFILES_ROOT/vscode/extensions.txt"
+  fi
+  if command -v cursor &> /dev/null; then
+      while read -r ext; do cursor --install-extension "$ext" --force; done < "$DOTFILES_ROOT/cursor/extensions.txt"
+  fi
+}
+
+install_oh_my_zsh () {
+  if[ ! -d "$HOME/.oh-my-zsh" ]; then
+    info "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
+}
+
+install_fonts () {
+  info 'Installing fonts...'
+
+  # Check if the fonts directory exists and has files
+  if[ -d "$DOTFILES_ROOT/fonts" ] &&[ "$(ls -A "$DOTFILES_ROOT/fonts" 2>/dev/null)" ]; then
+    # Copy fonts to the macOS user fonts directory
+    cp -f "$DOTFILES_ROOT"/fonts/* "$HOME/Library/Fonts/"
+    success "Fonts copied to ~/Library/Fonts"
+  else
+    user "No fonts found in $DOTFILES_ROOT/fonts to install."
+  fi
+}
+
+# --- Execute Functions ---
+
+install_oh_my_zsh
+install_dotfiles
+install_app_configs
+install_extensions
+install_fonts
+
+echo ''
+echo '✅ All installed! Restart your terminal to see changes.'
