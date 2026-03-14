@@ -1,8 +1,6 @@
 {
   "terminal.integrated.fontFamily": "Meslo LG L DZ For Powerline",
-  "snyk.advanced.cliPath": "/Users/onoff/Library/Application Support/snyk-ls/snyk-macos",
   "workbench.colorTheme": "Nord",
-  "sherlock.userId": "5552b68c-7979-4209-a45b-79e4a1bbceae",
   "telemetry.telemetryLevel": "off",
   "editor.fontSize": 16,
   "terminal.integrated.fontSize": 14,
@@ -16,7 +14,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "stylelint.validate": ["css", "scss"],
-  "stylelint.stylelintPath": "/Users/onoff/Projects/onoff-business-frontend/node_modules/stylelint",
   "prisma.showPrismaDataPlatformNotification": false,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
@@ -41,5 +38,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "sherlock.userId": "934781a1-4a54-416b-aec6-2fe123652ce6"
 }

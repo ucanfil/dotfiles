@@ -1,8 +1,6 @@
 {
   "terminal.integrated.fontFamily": "Meslo LG L DZ For Powerline",
-  "snyk.advanced.cliPath": "/Users/onoff/Library/Application Support/snyk-ls/snyk-macos",
   "workbench.colorTheme": "Nord",
-  "sherlock.userId": "5552b68c-7979-4209-a45b-79e4a1bbceae",
   "telemetry.telemetryLevel": "off",
   "editor.fontSize": 16,
   "terminal.integrated.fontSize": 14,
