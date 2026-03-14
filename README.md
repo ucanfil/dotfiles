@@ -29,7 +29,7 @@ cd ~/dotfiles
 
 ```
 ./homebrew
-./bootstap
+./bootstrap
 ```
 
 ### 4. Maintenance
