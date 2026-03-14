@@ -5,8 +5,10 @@ An automated macOS development environment setup, optimized for a fast, portable
 Includes automated configurations for:
 
 - **Zsh & Oh My Zsh** (with Powerlevel10k theme)
-- **Homebrew** (Apps & CLI tools)
+- **Homebrew** (Apps & CLI tools, including iTerm2 and Meslo font)
 - **VS Code & Cursor** (Settings, Keybindings, and Extensions)
+
+**iTerm2** is installed via Homebrew; set it up manually (Preferences → Profiles → Text → Font: “Meslo LG L DZ For Powerline” for Powerlevel10k; pick theme and locale as needed).
 
 ## 🛠 Installation on a New Mac
 
