@@ -111,26 +111,39 @@ install_oh_my_zsh () {
   fi
 }
 
-install_fonts () {
-  info 'Installing fonts...'
+# Install Powerlevel10k theme and plugins required by zshrc.symlink
+install_oh_my_zsh_custom () {
+  local custom="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+  mkdir -p "$custom/themes" "$custom/plugins"
 
-  # Check if the fonts directory exists and has files
-  if [ -d "$DOTFILES_ROOT/fonts" ] && [ "$(ls -A "$DOTFILES_ROOT/fonts" 2>/dev/null)" ]; then
-    # Copy fonts to the macOS user fonts directory
-    cp -f "$DOTFILES_ROOT"/fonts/* "$HOME/Library/Fonts/"
-    success "Fonts copied to ~/Library/Fonts"
-  else
-    user "No fonts found in $DOTFILES_ROOT/fonts to install."
+  if [ ! -d "$custom/themes/powerlevel10k" ]; then
+    info "Installing Powerlevel10k theme..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$custom/themes/powerlevel10k"
+    success "Powerlevel10k installed"
   fi
+
+  for spec in \
+    "zsh-users/zsh-autosuggestions:plugins/zsh-autosuggestions" \
+    "zsh-users/zsh-syntax-highlighting:plugins/zsh-syntax-highlighting" \
+    "MichaelAquilina/zsh-you-should-use:plugins/you-should-use" \
+    "fdellwing/zsh-bat:plugins/zsh-bat"; do
+    repo="${spec%%:*}"
+    dest="${spec##*:}"
+    if [ ! -d "$custom/$dest" ]; then
+      info "Installing Oh My Zsh plugin: $dest..."
+      git clone --depth=1 "https://github.com/$repo.git" "$custom/$dest"
+      success "$dest installed"
+    fi
+  done
 }
 
 # --- Execute Functions ---
 
 install_oh_my_zsh
+install_oh_my_zsh_custom
 install_dotfiles
 install_app_configs
 install_extensions
-install_fonts
 
 echo ''
 echo '✅ All installed! Restart your terminal to see changes.'

@@ -7,7 +7,6 @@ Includes automated configurations for:
 - **Zsh & Oh My Zsh** (with Powerlevel10k theme)
 - **Homebrew** (Apps & CLI tools)
 - **VS Code & Cursor** (Settings, Keybindings, and Extensions)
-- **Fonts** (MesloLGS NF for terminal icons)
 
 ## 🛠 Installation on a New Mac
 
