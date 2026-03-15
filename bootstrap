@@ -137,12 +137,29 @@ install_oh_my_zsh_custom () {
   done
 }
 
+# Point iTerm2 at dotfiles/iterm so it loads and saves prefs there. Run when iTerm2 is not running.
+install_iterm () {
+  if [ ! -d "$DOTFILES_ROOT/iterm" ] || [ ! -f "$DOTFILES_ROOT/iterm/com.googlecode.iterm2.plist" ]; then
+    return
+  fi
+  if pgrep -x iTerm2 >/dev/null 2>&1 || pgrep -x iTerm >/dev/null 2>&1; then
+    user "iTerm2 is running — quit iTerm2 (⌘Q) and run ./bootstrap again to point it at dotfiles/iterm"
+    return
+  fi
+  info 'Pointing iTerm2 at dotfiles/iterm...'
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOTFILES_ROOT/iterm"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+  defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile -bool true
+  success "iTerm2 will use $DOTFILES_ROOT/iterm — restart iTerm2"
+}
+
 # --- Execute Functions ---
 
 install_oh_my_zsh
 install_oh_my_zsh_custom
 install_dotfiles
 install_app_configs
+install_iterm
 install_extensions
 
 echo ''
